@@ -1,0 +1,55 @@
+/* STYLE GLOBAL */
+
+/* Style texte jaune encart (couleur, taille et poid) */
+.texte-encart {
+    color: #ffc200;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+/* Style texte jaune encart (couleur, taille et poid) */
+.informations {
+    font-weight: 500;
+    color: #ffc200;
+    text-align: right;
+}
+
+/* Taille texte information chauffe eau et chauffage*/
+.texte {
+    font-size: 0.9em;
+}
+
+/* Style alignement éléments centre */
+.centre {
+    display: grid;
+    place-items: center;
+    height: 70%;
+}
+
+/* Cache des résulats factices pour le js */
+#resultats {
+    display: none;
+}
+
+
+
+/* STYLE CHOIX ARTISAN */
+
+/* Ombre case artisan */
+.artisan {
+    box-shadow: 0 2px 5px rgba(46, 46, 46, 0.2);
+}
+
+/* Style curseur lors du hover des images */
+.artisan:hover {
+    cursor: pointer;
+    border: #ffc200 2px solid;
+}
+
+/* Style de l'encart de la section de boutons submit */
+.encart-boutons {
+    border: #ffc200 1px solid;
+    padding: 10px;
+    text-transform: uppercase;
+    text-align: center;
+}

@@ -1,0 +1,61 @@
+{# Header de la partie carnet de santé du logement #}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('styles/components/header.css') }}">
+
+{% endblock %}
+
+{# Header de la partie CSL de la démo #}
+<div class="header bg-bleu">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        {# Partie gauche du header -> lien vers le dashboard CSL + logo Upkay #}
+        <div class="d-flex flex-grow-1">
+            <a class="navbar-brand" href="{{ path('dashboard_csl', {id: bien.id}) }}"><img src="{{ asset('images/menus/logo-upkay.svg') }}" alt="logo upkay" width="270px"></a>
+            <div class="w-100 text-right">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="collapse navbar-collapse flex-grow-1 text-right" id="navbarSupportedContent">
+            {# Partie centrale du header -> nom de l'agence #}
+            <ul class="navbar-nav w-100 justify-content-center">
+                <li class="nav-item active">
+                    <a class="nav-link agence" href="#">{{ app.user.nomEntreprise }}</a>
+                </li>
+            </ul>
+            {# Partie droite du header -> contact, favoris et menu non fonctionnel #}
+            <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                {# Contact #}
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Contactez-nous : 03 52 74 06 35 </a>
+                </li>
+                {# Favoris -> pas de lien fonctionnel #}
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Favoris</a>
+                </li>
+                {# Mon espace -> pas de lien fonctionnel #}
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Mon espace
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Messages</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Réservations</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Paiements</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Commentaires</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Mon profil</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

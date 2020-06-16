@@ -1,0 +1,97 @@
+{# Page parc locatif (nb de bien, ajout de bien, lien vers la visualisation et modification de bien, lien vers la page demande de prestation et la page CSL) #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{# Titre de la page #}
+<h1 class="mt-5">Parc locatif</h1>
+<div class="separation mb-4"></div>
+
+{# Première ligne de la page - (nombre bien, lien création logement) #}
+<div class="mt-4 mr-4">
+    <div class="row">
+        {# Case nombre total de biens (affichage dynamique) #}
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="container encart">
+                <h2>Nombres de biens</h2>
+                <p class="texte-jaune">{{ biens|length }}</p>
+            </div>
+        </div>
+        {# Case ajout de logement (lien vers le formulaire de création de bien) #}
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="container encart">
+                <h2>Ajouter un bien à la main</h2>
+                <a href="{{ path('formulaire_bien') }}">
+                    <img src="{{ asset('images/icones/ajouter.svg') }}" alt="ajouter" class="mt-2" height="40px">
+                </a>
+            </div>
+        </div>
+        {# Case téléverser un fichier (non fonctionnelle) #}
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="container encart">
+                <h2>Téléverser un fichier</h2>
+                <img src="{{ asset('images/icones/televerser.svg') }}" alt="ajouter" class="mt-2" height="40px">
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Deuxième ligne de la page - Formulaire de filtre de bien par ville ou code postal #}
+{{ include('formulaires/filtre_form.html.twig') }}
+
+{# Troisième ligne de la page (tableau récapitulatif des logements) #}
+<div class="mt-3 mr-4">
+    <div class="encart">
+        {# Titre de la case #}
+        <h2 class="left mt-2 ml-2">Liste des biens</h2>
+        <div class="sous-separation"></div>
+        {# Tableau récapitulatif des logements #}
+        <div class="table-responsive">
+            <table class="table table-striped table-sm mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom du bien</th>
+                        <th scope="col">Adresse</th>
+                        <th scope="col">Ville</th>
+                        <th scope="col">Locataire</th>
+                        <th scope="col">Type de bien</th>
+                        <th scope="col">Créer une <br> prestation</th>
+                        <th scope="col">Modifier <br> le bien</th>
+                        <th scope="col">Carnet de <br> santé</th>
+                        <th scope="col">Voir le <br> bien</th>
+                    </tr>
+                </thead>
+                {# Affichage des données dynamique #}
+                <tbody>
+                    {% for bien in biens %}
+                    <tr>
+                        <td>{{ bien.nom}}</td>
+                        <td>{{ bien.adresse }} <br>
+                            {{ bien.ville.codePostal }} {{ bien.ville.nom }}</td>
+                        <td>{{ bien.ville.nom }}</td>
+                        <td>{{ bien.locataire.prenom }} {{ bien.locataire.nom }}</td>
+                        <td>{{ bien.typeBien.type }}</td>
+                        {# Lien création prestation #}
+                        <td><a href="{{ path('demande_prestation', {id: bien.id}) }}"><img
+                                    src="{{ asset('images/icones/ajouter.svg') }}" height="20px" alt="ajouter"></a></td>
+                        {# Lien modification bien #}
+                        <td><a href="{{ path('formulaire_bien_modif', {id: bien.id}) }}"><img
+                                    src="{{ asset('images/icones/editer.svg') }}" height="20px" alt="editer"></a></td>
+                        {# Lien carnet de santé du logement #}
+                        <td><a href="{{ path('dashboard_csl', {id: bien.id}) }}"><img
+                                    src="{{ asset('images/csl/csl.svg') }}" height="20px" alt="csl"></a></td>
+                        {# Lien visualisation bien #}
+                        <td><a href="{{ path('bien', {id: bien.id }) }}"><img
+                                    src="{{ asset('images/icones/voir.svg') }}" height="20px" alt="voir"></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {# Condition si données tableau = NULL #}
+            {% if biens == NULL %}
+            <p class="texte-null mt-4 mb-4">Aucun logement trouvé</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

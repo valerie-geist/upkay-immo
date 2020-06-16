@@ -1,0 +1,317 @@
+{# Formulaire de création de prestation (semi-fonctionnel) #}
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/formulaire-prestation-style.css') }}">
+<style>
+    /* Cache des résulats factices pour le js */
+#resultats {
+    display: none;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+
+{# Titre de la page #}
+<h1 class="mt-5">Demande de prestation</h1>
+<div class="separation mb-4"></div>
+
+{# Première ligne de la page - nom du bien, adresse du bien et locataire #}
+<div class="mt-4 mr-4">
+    <div class="row">
+        {# Case nom du bien (affichage dynamique) #}
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="container encart">
+                <h2>Nom du bien</h2>
+                <div class="centre">
+                    <p class="texte-encart">{{ bien.nom }}</p>
+                </div>
+            </div>
+        </div>
+        {# Case adresse du bien (affichage dynamique) #}
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="container encart">
+                <h2>Adresse du bien</h2>
+                <p class="texte-encart">{{ bien.adresse }} <br> {{ bien.ville.codePostal }} {{ bien.ville.nom }}</p>
+            </div>
+        </div>
+        {# Case locataire bien (affichage dynamique) #}
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="container encart">
+                <h2>Locataire du bien</h2>
+                <div class="centre">
+                    <p class="texte-encart centre">{{ bien.locataire.prenom }} {{ bien.locataire.nom }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Deuxième ligne de la page - information chauffe eau et chauffage #}
+<div class="mt-4 mr-4">
+    <div class="row">
+        {# Case information chauffage du bien (affichage dynamique) #}
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="container encart mb-3">
+                <h2 class="left ml-2 mt-2">Informations sur le chauffage</h2>
+                <div class="sous-separation"></div>
+                {# Information chauffage #}
+                <div class="left mt-3">
+                    {# Type chauffage #}
+                    <div class="row texte">
+                        <div class="col-sm-5 col-md-5 col-lg-5 informations">
+                            Type d'installation :
+                        </div>
+                        <div class="col-sm col-md col-lg">
+                            {{ bien.chauffage.type.nom }}
+                        </div>
+                    </div>
+                    {# Marque chauffage #}
+                    <div class="row mt-1 texte">
+                        <div class="col-sm-5 col-md-5 col-lg-5 informations">
+                            Marque :
+                        </div>
+                        <div class="col-sm col-md col-lg">
+                            {{ bien.chauffage.marque }}
+                        </div>
+                    </div>
+                    {# Modèle chauffage (condition: affichage seulement si la case à été remplie) #}
+                    {% if bien.chauffage.modele != NULL %}
+                    <div class="row mt-1 texte">
+                        <div class="col-sm-5 col-md-5 col-lg-5 informations">
+                            Modèle :
+                        </div>
+                        <div class="col-sm col-md col-lg">
+                            {{ bien.chauffage.modele }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {# Puissance chauffage (condition: affichage seulement si la case à été remplie) #}
+                    {% if bien.chauffage.puissance != NULL %}
+                    <div class="row mt-1 texte">
+                        <div class="col-sm-5 col-md-5 col-lg-5 informations">
+                            Puissance :
+                        </div>
+                        <div class="col-sm col-md col-lg">
+                            {{ bien.chauffage.puissance }} kW
+                        </div>
+                    </div>
+                    {% endif %}
+                    {# Date installation chauffage (condition: affichage seulement si la case à été remplie) #}
+                    {% if bien.chauffage.anneeInstallation != NULL %}
+                    <div class="row mt-1 texte">
+                        <div class="col-sm-5 col-md-5 col-lg-5 informations">
+                            Année d'installation :
+                        </div>
+                        <div class="col-sm col-md col-lg">
+                            {{ bien.chauffage.anneeInstallation|date('d/m/Y') }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {# Case informations chauffe eau du bien (affichage dynamique) #}
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="container encart mb-3">
+                <h2 class="left ml-2 mt-2">Informations sur le chauffe eau</h2>
+                <div class="sous-separation"></div>
+                {# Information chauffe eau #}
+                <div class="left mt-3">
+                    {# Type chauffe eau #}
+                    <div class="row texte">
+                        <div class="col-sm-5 col-md-5 col-lg-5 informations">
+                            Type d'installation :
+                        </div>
+                        <div class="col-sm col-md col-lg">
+                            {{ bien.chauffeEau.type.nom }}
+                        </div>
+                    </div>
+                    {# Marque chauffe eau #}
+                    <div class="row mt-1 texte">
+                        <div class="col-sm-5 col-md-5 col-lg-5 informations">
+                            Marque :
+                        </div>
+                        <div class="col-sm col-md col-lg">
+                            {{ bien.chauffeEau.marque }}
+                        </div>
+                    </div>
+                    {# Modèle chauffe eau (condition: affichage seulement si la case à été remplie) #}
+                    {% if bien.chauffeEau.modele != NULL %}
+                    <div class="row mt-1 texte">
+                        <div class="col-sm-5 col-md-5 col-lg-5 informations">
+                            Modèle :
+                        </div>
+                        <div class="col-sm col-md col-lg">
+                            {{ bien.chauffeEau.modele }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {# Capacité chauffe eau (condition: affichage seulement si la case à été remplie) #}
+                    {% if bien.chauffeEau.capacite != NULL %}
+                    <div class="row mt-1 texte">
+                        <div class="col-sm-5 col-md-5 col-lg-5 informations">
+                            Capacité :
+                        </div>
+                        <div class="col-sm col-md col-lg">
+                            {{ bien.chauffeEau.capacite }} L
+                        </div>
+                    </div>
+                    {% endif %}
+                    {# Date installation chauffe eau (condition: affichage seulement si la case à été remplie) #}
+                    {% if bien.chauffeEau.anneeInstallation != NULL %}
+                    <div class="row mt-1 texte">
+                        <div class="col-sm-5 col-md-5 col-lg-5 informations">
+                            Année d'installation :
+                        </div>
+                        <div class="col-sm col-md col-lg">
+                            {{ bien.chauffeEau.anneeInstallation|date('d/m/Y') }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Troisième ligne de la page - Formulaire de création de prestation) #}
+<div class="encart-form mt-4 mr-4 mb-3">
+    <h2 class="left">Choix de la prestation</h2>
+    <div class="sous-separation mb-4"></div>
+
+    {# Formulaire prestation #}
+    <div class="formulaire">
+        {{ form_start(form) }}
+
+        {# Case choix prestation #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(form.intervention, "Choix de la prestation : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(form.intervention, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Choix catégorie de la prestation #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(form.categorie, "Choix de la catégorie : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(form.categorie, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-sm col-md col-lg"></div>
+            {# Bouton avec fonction onClick pour imiter la validation du formulaire, affiche le reste de la page (choix réservation artisan) #}
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <div onclick="toggleResultats()">
+                    <a href="#resultats" class="btn bouton-formulaire btn-sm">Lancer la recherche</a>
+                </div>
+            </div>
+            <div class="col-sm col-md col-lg"></div>
+        </div>
+    </div>
+</div>
+
+{# Quatrième ligne de la page - choix de l'artisan (non fonctionnel) #}
+<div id="resultats" class="encart mr-4">
+    <h2 class="left mt-2 ml-2">Choix de l'artisan</h2>
+    <div class="sous-separation mb-4"></div>
+
+    {# Image imitant la barre de recherche #}
+    <div class="row mt-4">
+        <div class="col-9">
+            <img src="{{ asset('images/prestation/barre-filtre.jpg') }}" width="100%" alt="Barre filtre">
+            <div class="mt-3 centre">
+                <div>Nos chauffagistes autour de chez vous
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        {# Image imitant la géolocalisation #}
+        <div class="col-4">
+            <img src="{{ asset('images/prestation/plan.jpg') }}" width="100%" alt="Plan google">
+        </div>
+        {# Images imitant le choix de l'artisan -> fonction JS simulant une sélection de l'artisan lors du clic et renvoi au dashboard lors de la validation #}
+        <div class="col-5">
+            <div class="row">
+                {# Fonction onClick affichant un cadre jaune autour de l'image lors du clic #}
+                <div class="col">
+                    <img src="{{ asset('images/prestation/artisan-1.jpg') }}" width="100%" class="artisan"
+                        id="artisan-1" onclick="bordure1()" alt="Artisan 1">
+                </div>
+                {# Fonction onClick affichant un cadre jaune autour de l'image lors du clic #}
+                <div class="col">
+                    <img src="{{ asset('images/prestation/artisan-2.jpg') }}" width="100%" class="artisan"
+                        id="artisan-2" onclick="bordure2()" alt="Artisan 2">
+                </div>
+            </div>
+            <div class="row mt-4">
+                {# Fonction onClick affichant un cadre jaune autour de l'image lors du clic #}
+                <div class="col">
+                    <img src="{{ asset('images/prestation/artisan-3.jpg') }}" width="100%" class="artisan"
+                        id="artisan-3" onclick="bordure3()" alt="Artisan 3">
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
+        {# Bouton imitant la validation du formulaire et renvoyant sur la page des prestations ouvertes #}
+        <div class="col-3">
+            <div class="encart-boutons">
+                <div class="titre-boutons">Action à réaliser par un tiers</div>
+                <div class="formulaire">
+                    <button type="submit" class="btn bouton-formulaire btn-sm mt-3">Envoyer le lien au
+                        locataire</button>
+                    <button type="submit" class="btn bouton-formulaire btn-sm mt-3">Envoyer le lien au
+                        propriétaire</button>
+                    <button type="submit" class="btn bouton-formulaire btn-sm mt-3">Demande de validation du
+                        devis</button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('scripts/prestation_script.js')}}"></script>
+<script>
+
+    // JS FRONT (fonction onClick affichage et changement style)
+
+    // Fonctions onClick affichant le bloc choix de l'artisan
+    function toggleResultats(){
+        let resultats = document.getElementById("resultats");
+        if (resultats.style.display === "block") {
+            resultats.style.display = "none";
+        } else {
+            resultats.style.display = "block";
+        }
+    }
+
+    // Fonctions onClick affichant un cadre jaune autour des cases artisans lors du clic
+    function bordure1() {
+        document.getElementById("artisan-1").style.border = "#ffc200 2px solid";
+    }
+
+    function bordure2() {
+        document.getElementById("artisan-2").style.border = "#ffc200 2px solid";
+    }
+    function bordure3() {
+        document.getElementById("artisan-3").style.border = "#ffc200 2px solid";
+    }
+    
+</script>
+{% endblock %}

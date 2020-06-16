@@ -1,0 +1,67 @@
+{# Page formulaire de filtre de bien par ville et code postal #}
+
+{% block stylesheets %}
+<style>
+    /* Style bouton "tous les biens" (couleur) */
+    .bouton-formulaire-jaune {
+        background-color: #ffc200;
+    }
+
+    /* Style hover bouton "tous les biens" (couleur) */
+    .bouton-formulaire-jaune:hover {
+        color: #ffc200;
+        border: #ffc200 1px solid;
+    }
+
+    .left{
+        text-align: left;
+    }
+</style>
+{% endblock %}
+
+<div class="mt-3 mr-4 mb-3">
+    <div class="encart">
+        <h2 class="left mt-2 ml-2">Filtrer les biens par ville ou par code postal</h2>
+        <div class="sous-separation mb-4"></div>
+        {# Formulaire du filtre de tri des biens par ville #}
+        <div class="formulaire left ml-5">
+            {{ form_start(filtreForm) }}
+
+            {# Ligne case recherche par ville #}
+            <div class="form-group row">
+                {# Case filtre par ville #}
+                <div class="col-sm-2 col-md-2 col-lg-2 col-form-label">
+                    {{ form_label(filtreForm.ville, "Filtrer par ville :") }}
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    {{ form_widget(filtreForm.ville, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+            </div>
+
+            {# Ligne case recherche par cp, bouton submit et affichage "tous les biens" #}
+            <div class="form-group row">
+
+                {# Case filtre par code postal #}
+                <div class="col-sm-2 col-md-2 col-lg-2 col-form-label">
+                    {{ form_label(filtreForm.cp, "Filtrer par code postal :") }}
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    {{ form_widget(filtreForm.cp, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+
+                {# Bouton recherche #}
+                <div class="col-sm-2 col-md-2 col-lg-2 ml-5">
+                    <button type="submit" class="btn bouton-formulaire  btn-sm">Lancer la recherche</button>
+                </div>
+
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+
+                {# Bouton de rechargement de la page pour réafficher tous les logements #}
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <a href='{{ path('parc_locatif') }}' class="btn bouton-formulaire bouton-formulaire-jaune btn-sm">Voir tous les biens</a>
+                </div>
+            </div>
+            {{ form_end(filtreForm) }}
+        </div>
+    </div>
+</div>

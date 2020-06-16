@@ -1,0 +1,103 @@
+
+        /* STYLE GLOBAL */
+
+/* Taille texte jaune */
+.texte-jaune{
+    font-size: 1.8em;
+}
+
+/* Taille texte jaune 'petit' */
+.petit{
+    font-size: 1em;
+}
+
+/* Style texte pas de commentaires (italique, couleur, taille) */
+.texte {
+    font-style: italic;
+    color: #646464;
+    }
+
+
+/* Style tableaux (taille et typo) */
+table th,
+table td{
+    font-size: 1.2em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+        /* STYLE CASE BARRE PROGRESSION */
+
+/* Style de la balise strong (type de presta + lieu) (taille, padding) */
+strong{
+    padding: 0 20px;
+    font-size: 1.1em;
+}
+
+/* Style des dates de la barre de progression (couleur et poids) */
+.dates{
+    color: #00bfb0;
+    font-weight: bold;
+}
+
+/* Style de la barre de progression (largeur, marge) */
+.progress{
+    width: 82%;
+    margin: auto;
+}
+
+/* Style du texte de la barre de progression (taille et famille de la typo) */
+.texte-barre-progression{
+    font-size: 0.8em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+        /* STYLE ECHANGES */
+
+/* Style case échanges (bg et padding) */
+.echanges{
+    background-color: rgba(0, 191, 176, 0.11);
+    padding: 15px;
+    font-size: 0.8em;
+}
+
+/* Style titre échange (taille, couleur et épaisseur */
+h3{
+    color: #00bfb0;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+/* Style sous titre échange (italic, taille et marge) */
+h4{
+    font-style: italic;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.form-control-file{
+    margin: auto;
+}
+
+
+        /* STYLE BOUTONS */
+
+/* Style cadre formulaire bouton (bg)*/
+.cadre-bouton{
+    background-color: rgba(73, 73, 73, 0.2);
+}
+
+.bouton-prestation:hover {
+    color: #00bfb0;
+}
+
+.bouton-formulaire {
+    width: 80%;
+}
+
+/* Style label des formulaire (italique et taille) */
+label{
+    font-style: italic;
+    font-size: 0.7em;
+}

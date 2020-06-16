@@ -1,0 +1,81 @@
+/* STYLE GLOBAL */
+
+/* Style h2 page calendrier */
+h2{
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+/* Taille texte jaune */
+.texte-jaune{
+    font-size: 1.3em;
+    text-transform: uppercase;
+}
+
+/* Taille texte jaune 'petit' */
+.petit{
+    font-size: 1em;
+    color: #ffc200;
+    font-weight: normal;
+}
+
+/* Trait séparation titre choix calendrier */
+.trait{
+    border-top: #ffc200 1px solid;
+    width: 30%;
+    margin: auto;
+}
+
+/* Style de l'encart choix artisan (bg et padding) */
+.encart-calendrier{
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+
+/* STYLE CHOIX ARTISAN */
+
+/* Style de l'encart de la section de boutons submit */
+.encart-boutons{
+    border: #ffc200 1px solid;
+    background-color: white;
+    padding: 10px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* Style des boutons submit (taille et minuscules) */
+.bouton-formulaire{
+    text-transform: none;
+    font-size: 0.8em;
+}
+
+/* Alignement texte au centre */
+.centre{
+    text-align: center;
+}
+
+/* Ombre case artisan */
+.artisan{
+    box-shadow: 0 2px 5px rgba(46, 46, 46, 0.2);
+}
+
+/* Style curseur lors du hover des images */
+.artisan:hover {
+    cursor: pointer;
+    border: #ffc200 2px solid;
+}
+
+/* Style h3 case artisan */
+h3{
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+/* Style de l'encart titre récapitutalif adresse (taille et épaisseur) */
+.adresse{
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+

@@ -1,3 +1,102 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+# HOME - connexion
+app_login:
+  path: /
+  controller: App\Controller\SecurityController::login
+
+
+# DASHBOARD
+dashboard:
+  path: /interface-agence/dashboard
+  controller: App\Controller\DashboardController::index
+
+
+# PARC LOCATIF
+
+# Liste des biens
+parc_locatif:
+  path: /interface-agence/parc-locatif
+  controller: App\Controller\ParcController::index
+
+# Formulaire création bien
+formulaire_bien:
+  path: /interface-agence/parc-locatif/creer-un-bien
+  controller: App\Controller\ParcController::bienFormAction
+
+# Formulaire modification bien
+formulaire_bien_modif:
+  path: /interface-agence/parc-locatif/modifier-un-bien-{id}
+  controller: App\Controller\ParcController::bienModifFormAction
+
+# Page visualisation bien
+bien:
+  path: /interface-agence/parc-locatif/bien-{id}
+  controller: App\Controller\ParcController::bienAction
+
+
+# PRESTATION
+
+# Choix bien pour la création de prestation
+choix_demande_prestation:
+  path: /interface-agence/prestations/choix-bien-prestation
+  controller: App\Controller\PrestationController::index
+
+# Formulaire création prestation
+demande_prestation:
+  path: /interface-agence/prestations/demande-prestation-{id}
+  controller: App\Controller\PrestationController::prestationAction
+
+# Page vue prestations ouvertes
+prestations_ouvertes:
+  path: /interface-agence/prestations/prestations-ouvertes
+  controller: App\Controller\PrestationController::prestaOuvertesAction
+
+# Page prestation ouverte en fonction de l'id
+prestation:
+  path: /interface-agence/prestations/prestation-{id}
+  controller: App\Controller\PrestationController::prestaAction
+
+# Page prestations clôturée en fonction de l'id
+prestation_cloturee:
+  path: /interface-agence/prestations/prestation-cloluree-{id}
+  controller: App\Controller\PrestationController::prestaClotureeAction
+
+# Page vue prestations clôturées
+prestations_cloturees:
+  path: /interface-agence/prestations/prestations-cloturees
+  controller: App\Controller\PrestationController::prestaClotureesAction
+
+
+# PORTEFEUILLE - FACTURES
+
+# Page récapitulatif montant à payer
+montant_facture:
+  path: /interface-agence/solde-des-factures-à-payer
+  controller: App\Controller\FactureController::index
+
+
+# CSL
+
+# Page choix carnet de santé du logement
+choix_csl:
+  path: /interface-agence/csl/choix-carnet-sante-logement
+  controller: App\Controller\CSLController::index
+
+# Page dashboard CSL
+dashboard_csl:
+  path: /interface-agence/csl/dashboard/{id}
+  controller: App\Controller\CSLController::dashboardAction
+
+# Page CSL
+csl:
+  path: /interface-agence/csl/carnet-sante-logement/{id}
+  controller: App\Controller\CSLController::cslAction
+
+# Page calendrier CSL
+calendrier_csl:
+  path: /interface-agence/csl/calendrier/{id}
+  controller: App\Controller\CSLController::calendrierAction
+
+# Page coffre-fort CSL
+coffre_fort_csl:
+  path: /interface-agence/csl/coffre-fort/{id}
+  controller: App\Controller\CSLController::stockageAction

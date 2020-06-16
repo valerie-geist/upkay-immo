@@ -1,0 +1,162 @@
+{# Page calendrier: Récapitulatif des entretiens programmés pour le logement et possibilité de réserver la prestation (non fonctionnel) #}
+
+{% extends 'csl/csl_base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/csl-calendrier-style.css') }}">
+{% endblock %}
+
+{% block body %}
+    {# Titre de la page #}
+    <h1 class="mt-5">Calendrier</h1>
+    <div class="separation mb-4"></div>
+
+    {# Première ligne de la page - Encart récapitulatif entretiens et adresse #}
+    <div class="encart centre mt-4 mr-4 mb-3">
+        <div>
+            <div class="adresse">Entretiens à réaliser au logement : </div>
+            <div class="petit mt-2">{{ bien.nom }}</div>
+            <div class="petit">{{ bien.adresse }}, {{ bien.ville.codePostal }} {{ bien.ville.nom }}</div>
+        </div>
+    </div>
+
+    {# Deuxième ligne de la page - Entretien 1/2 - chaudière #}
+    <div class="encart centre mt-4 mr-4 mb-2">
+        <h2 class="mt-2">Entretien 1/2</h2>
+        {# Récapitulatif date de l'entretien #}
+        <div class="texte-calendrier mt-3">
+            <div>
+                <strong class="texte-jaune mr-3">Entretien Chaudière</strong> Avant le <strong class="texte-jaune ml-3">{{ bien.csl.entretienChaudiere|date('d.m.Y') }}</strong>
+            </div>
+        </div>
+        <div class="trait mt-2 mb-2"></div>
+        {# Choix de l'artisan -> non fonctionnel #}
+        {# Image imitant la barre de recherche #}
+        <img src="{{ asset('images/prestation/barre-filtre.jpg') }}" class="mt-4" width="100%" alt="Barre filtre">
+        <div class="encart-calendrier">
+            <div class="mt-2 centre">
+                <h3>Nos chauffagistes autour de chez vous</h3>
+            </div>
+            <div class="row mt-4">
+                {# Image imitant la géolocalisation #}
+                <div class="col-4">
+                    <img src="{{ asset('images/prestation/plan.jpg') }}" width="100%" alt="Plan google">
+                </div>
+                {# Images imitant le choix de l'artisan -> fonction JS simulant une sélection de l'artisan lors du clic et renvoi au dashboard lors de la validation #}
+                <div class="col-5">
+                    <div class="row">
+                        {# Fonction onClick affichant un cadre jaune autour de l'image lors du clic #}
+                        <div class="col">
+                            <img src="{{ asset('images/prestation/artisan-1.jpg') }}" width="100%" class="artisan" id="artisan-1" onclick="bordure1()" alt="Artisan 1">
+                        </div>
+                        {# Fonction onClick affichant un cadre jaune autour de l'image lors du clic #}
+                        <div class="col">
+                            <img src="{{ asset('images/prestation/artisan-2.jpg') }}" width="100%" class="artisan" id="artisan-2" onclick="bordure2()" alt="Artisan 2">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        {# Fonction onClick affichant un cadre jaune autour de l'image lors du clic #}
+                        <div class="col">
+                            <img src="{{ asset('images/prestation/artisan-3.jpg') }}" width="100%" class="artisan" id="artisan-3" onclick="bordure3()" alt="Artisan 3">
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                </div>
+                {# Bouton imitant la validation du formulaire et renvoyant sur le dashboard CSL #}
+                <div class="col">
+                    <div class="encart-boutons">
+                        <div class="titre-boutons">Action à réaliser par un tiers</div>
+                        <a href="{{ path('dashboard_csl', { id: bien.id }) }}" class="btn bouton-formulaire btn-sm mt-3">Envoyer le lien au locataire</a>
+                        <a href="{{ path('dashboard_csl', { id: bien.id }) }}" class="btn bouton-formulaire btn-sm mt-3">Envoyer le lien au propriétaire</a>
+                        <a href="{{ path('dashboard_csl', { id: bien.id }) }}" class="btn bouton-formulaire btn-sm mt-3">Demande de validation du devis</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Troisième ligne de la page - Entretien 2/2 - chauffe eau #}
+    <div class="encart centre mt-4 mr-4">
+        <h2 class="mt-2">Entretien 2/2</h2>
+        {# Récapitulatif date de l'entretien #}
+        <div class="texte-calendrier mt-3">
+            <div>
+                <strong class="texte-jaune mr-3">Entretien Chauffe eau</strong> Avant le <strong class="texte-jaune ml-3">{{ bien.csl.entretienChauffeEau|date('d.m.Y') }}</strong>
+            </div>
+        </div>
+        <div class="trait mt-2 mb-2"></div>
+        {# Choix de l'artisan -> non fonctionnel #}
+        {# Image imitant la barre de recherche #}
+        <img src="{{ asset('images/prestation/barre-filtre.jpg') }}" class="mt-4" width="100%" alt="Barre filtre">
+        <div class="encart-calendrier">
+            <div class="mt-2 centre">
+                <h3>Nos chauffagistes autour de chez vous</h3>
+            </div>
+            <div class="row mt-4">
+                {# Image imitant la géolocalisation #}
+                <div class="col-4">
+                    <img src="{{ asset('images/prestation/plan.jpg') }}" width="100%" alt="Plan google">
+                </div>
+                {# Images imitant le choix de l'artisan -> fonction JS simulant une sélection de l'artisan lors du clic et renvoi au dashboard lors de la validation #}
+                <div class="col-5">
+                    <div class="row">
+                        <div class="col">
+                            {# Fonction onClick affichant un cadre jaune autour de la case artisan lors du clic #}
+                            <img src="{{ asset('images/prestation/artisan-1.jpg') }}" width="100%" class="artisan" id="artisan-4" onclick="bordure4()" alt="Artisan 1">
+                        </div>
+                        <div class="col">
+                            {# Fonction onClick affichant un cadre jaune autour de la case artisan lors du clic #}
+                            <img src="{{ asset('images/prestation/artisan-2.jpg') }}" width="100%" class="artisan" id="artisan-5" onclick="bordure5()" alt="Artisan 2">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            {# Fonction onClick affichant un cadre jaune autour de la case artisan lors du clic #}
+                            <img src="{{ asset('images/prestation/artisan-3.jpg') }}" width="100%" class="artisan" id="artisan-6" onclick="bordure6()" alt="Artisan 3">
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                </div>
+                {# Bouton imitant la validation du formulaire et renvoyant sur le dashboard CSL #}
+                <div class="col-3">
+                    <div class="encart-boutons">
+                        <div class="titre-boutons">Action à réaliser par un tiers</div>
+                        <a href="{{ path('dashboard_csl', { id: bien.id }) }}" class="btn bouton-formulaire btn-sm mt-3">Envoyer le lien au locataire</a>
+                        <a href="{{ path('dashboard_csl', { id: bien.id }) }}" class="btn bouton-formulaire btn-sm mt-3">Envoyer le lien au propriétaire</a>
+                        <a href="{{ path('dashboard_csl', { id: bien.id }) }}" class="btn bouton-formulaire btn-sm mt-3">Demande de validation du devis</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+    {% block javascripts %}
+        <script>
+            // Fonctions onClick affichant un cadre jaune autour des cases artisans lors du clic
+            function bordure1() {
+                document.getElementById("artisan-1").style.border = "#ffc200 2px solid";
+            }
+            function bordure2() {
+                document.getElementById("artisan-2").style.border = "#ffc200 2px solid";
+            }
+            function bordure3() {
+                document.getElementById("artisan-3").style.border = "#ffc200 2px solid";
+            }
+            function bordure4() {
+                document.getElementById("artisan-4").style.border = "#ffc200 2px solid";
+            }
+            function bordure5() {
+                document.getElementById("artisan-5").style.border = "#ffc200 2px solid";
+            }
+            function bordure6() {
+                document.getElementById("artisan-6").style.border = "#ffc200 2px solid";
+            }
+
+        </script>
+    {% endblock %}
+
+

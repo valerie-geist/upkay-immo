@@ -1,0 +1,54 @@
+    /* Style alignement éléments centre */
+    .centre {
+        display: grid;
+        place-items: center;
+        height: 70%;
+    }
+
+    /* Style texte encart macaron m-énergie (taille et épaisseur) */
+    .texte-m-energies {
+        font-size: 0.8em;
+        font-weight: 500;
+    }
+
+    /* Style texte jaune, taille modifiée */
+    .texte-jaune {
+        font-size: 1.3em;
+    }
+
+    /* Style dates entretiens (couleur, épaisseur, taille et majuscule) */
+    .date {
+        margin-bottom: -5px;
+        color: #ff2f00;
+        font-weight: bold;
+        font-size: 1em;
+        text-transform: uppercase;
+    }
+
+    /* Style texte consommation/production (italique, couleur, taille) */
+    .texte {
+        font-style: italic;
+        color: #646464;
+        font-size: 0.8em;
+    }
+
+    /* Style du slider des photos du logement (affichage en ligne avec une barre de défilement) */
+    .photos-logement {
+        display: flex;
+        overflow-x: scroll;
+        padding: 1rem 0;
+        scroll-snap-type: x mandatory;
+        list-style: none;
+    }
+
+    /* Style photo du slider */
+    .photo {
+        flex: 1 0 150px;
+        margin-left: 1rem;
+        scroll-snap-align: start;
+    }
+
+    /* Hauteur des photos du slider */
+    .photo img {
+        height: 200px;
+    }

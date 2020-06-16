@@ -1,0 +1,333 @@
+{# Page récapitulative des informations sur un bien individuel #}
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<style>
+
+    /* Taille texte encart */
+    .encart{
+        font-size: 0.9em;
+    }
+
+    /* Style des récapitulatifs d'information (texte jaune, alignement à droite) */
+    .informations {
+        font-weight: 500;
+        color: #ffc200;
+        text-align: right;
+    }
+
+    /* Style du lien du carnet de santé */
+    a {
+        color: #2e2e2e;
+        cursor: pointer;
+    }
+
+    /* Style du lien et de l'image du carnet de santé en hover */
+    .csl:hover a,
+    .csl:hover svg {
+        fill: #00bfb0;
+        color: #00bfb0;
+
+    }
+
+    /* Style svg (couleur) */
+    svg {
+        fill: #2e2e2e;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{# Titre de la page #}
+<h1 class="mt-5">Parc locatif - bien {{ bien.nom }}</h1>
+<div class="separation mb-4"></div>
+
+<div class="mt-3 mr-4">
+    <div class="encart left pb-5">
+
+        {# Information générale du bien (nom, adresse, cp, ville, étage, ascenceur, type de bien, surface) #}
+        <h2 class="left mt-2 ml-2">Informations générale sur le bien</h2>
+        <div class="sous-separation"></div>
+        <div class="left ml-4 mt-4">
+            {# Nom du bien #}
+            <div class="row ">
+                <div class="col-2 informations">
+                    Nom du bien :
+                </div>
+                <div class="col-6">
+                    {{ bien.nom}}
+                </div>
+            </div>
+            {# Adresse du bien #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Adresse du bien :
+                </div>
+                <div class="col-6">
+                    {{ bien.adresse}}, {{ bien.ville.codePostal }} {{ bien.ville.nom }}
+                </div>
+            </div>
+            {# Ville du bien #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Ville du bien :
+                </div>
+                <div class="col-6">
+                    {{ bien.ville.nom }}
+                </div>
+            </div>
+            {# Etage du bien (condition: affichage seulement si la case à été remplie ) #}
+            {% if bien.etage != NULL %}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Etage du bien :
+                </div>
+                <div class="col-6">
+                    {{ bien.etage }}
+                </div>
+            </div>
+            {% endif %}
+            {# Ascenceur du bien (condition: affichage seulement si la case à été remplie ) #}
+            {% if bien.ascenceur != NULL %}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Ascenceur :
+                </div>
+                <div class="col-6">
+                    Oui
+                </div>
+            </div>
+            {% endif %}
+            {# Bloc type de bien #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Type de bien :
+                </div>
+                <div class="col-6">
+                    {{ bien.typeBien.type }}
+                </div>
+            </div>
+            {# Bloc surface bien #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Surface du bien :
+                </div>
+                <div class="col-6">
+                    {{ bien.surface }} m²
+                </div>
+            </div>
+        </div>
+
+        {# Locataire (nom, prénom, email, téléphone, date de naissance, nationalité et pays de résidence) #}
+        <h2 class="left mt-5 ml-2">Informations sur le locataire</h2>
+        <div class="sous-separation"></div>
+        <div class="left ml-4 mt-4">
+            {# Nom locataire #}
+            <div class="row ">
+                <div class="col-2 informations">
+                    Locataire :
+                </div>
+                <div class="col-6">
+                    {{ bien.locataire.prenom }} {{ bien.locataire.nom }}
+                </div>
+            </div>
+            {# Email locataire #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Email :
+                </div>
+                <div class="col-6">
+                    {{ bien.locataire.email }}
+                </div>
+            </div>
+            {# Téléphone locataire #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Téléphone :
+                </div>
+                <div class="col-6">
+                    {{ bien.locataire.telephone }}
+                </div>
+            </div>
+            {# Date de naissance locataire #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Date de naissance :
+                </div>
+                <div class="col-6">
+                    {{ bien.locataire.dateNaissance|date('d/m/Y') }}
+                </div>
+            </div>
+            {# Nationalité locataire #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Nationalité :
+                </div>
+                <div class="col-6">
+                    {{ bien.locataire.nationalite }}
+                </div>
+            </div>
+            {# Pays résidence locataire #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Pays de résidence :
+                </div>
+                <div class="col-6">
+                    {{ bien.locataire.paysResidence }}
+                </div>
+            </div>
+        </div>
+
+        {# Chauffage (type, marque, modèle, puissance, date d'installation) #}
+        <h2 class="left mt-5 ml-2">Informations sur le chauffage</h2>
+        <div class="sous-separation"></div>
+        <div class="left ml-4 mt-4">
+            {# Type chauffage #}
+            <div class="row ">
+                <div class="col-2 informations">
+                    Type de chauffage :
+                </div>
+                <div class="col-6">
+                    {{ bien.chauffage.type.nom }}
+                </div>
+            </div>
+            {# Marque chauffage #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Marque :
+                </div>
+                <div class="col-6">
+                    {{ bien.chauffage.marque }}
+                </div>
+            </div>
+            {# Modèle chauffage (condition: affichage seulement si la case à été remplie) #}
+            {% if bien.chauffage.modele != NULL %}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Modèle :
+                </div>
+                <div class="col-6">
+                    {{ bien.chauffage.modele }}
+                </div>
+            </div>
+            {% endif %}
+            {# Puissance chauffage (condition: affichage seulement si la case à été remplie) #}
+            {% if bien.chauffage.puissance != NULL %}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Puissance :
+                </div>
+                <div class="col-6">
+                    {{ bien.chauffage.puissance }} kW
+                </div>
+            </div>
+            {% endif %}
+            {# Date installation chauffage (condition: affichage seulement si la case à été remplie) #}
+            {% if bien.chauffage.anneeInstallation != NULL %}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Année d'installation :
+                </div>
+                <div class="col-6">
+                    {{ bien.chauffage.anneeInstallation|date('d/m/Y') }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {# Chauffe eau (type, marque, modèle, capacité, date d'installation) #}
+        <h2 class="left mt-5 ml-2">Informations sur le chauffe eau</h2>
+        <div class="sous-separation"></div>
+        <div class="left ml-4 mt-4">
+            {# Type chauffe eau #}
+            <div class="row ">
+                <div class="col-2 informations">
+                    Type de chauffe eau :
+                </div>
+                <div class="col-6">
+                    {{ bien.chauffeEau.type.nom }}
+                </div>
+            </div>
+            {# Marque chauffe eau #}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Marque :
+                </div>
+                <div class="col-6">
+                    {{ bien.chauffeEau.marque }}
+                </div>
+            </div>
+            {# Modèle chauffe eau (condition: affichage seulement si la case à été remplie) #}
+            {% if bien.chauffeEau.modele != NULL %}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Modèle :
+                </div>
+                <div class="col-6">
+                    {{ bien.chauffeEau.modele }}
+                </div>
+            </div>
+            {% endif %}
+            {# Capacité chauffe eau (condition: affichage seulement si la case à été remplie) #}
+            {% if bien.chauffeEau.capacite != NULL %}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Capacité :
+                </div>
+                <div class="col-6">
+                    {{ bien.chauffeEau.capacite }} L
+                </div>
+            </div>
+            {% endif %}
+            {# Date installation chauffe eau (condition: affichage seulement si la case à été remplie) #}
+            {% if bien.chauffeEau.anneeInstallation != NULL %}
+            <div class="row mt-3">
+                <div class="col-2 informations">
+                    Année d'installation :
+                </div>
+                <div class="col-6">
+                    {{ bien.chauffeEau.anneeInstallation|date('d/m/Y') }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {# Carnet de santé du logement (lien vers la page CSL du logement) #}
+        <h2 class="left mt-5 ml-2">Carnet de santé du logement</h2>
+        <div class="sous-separation"></div>
+        <div class="left ml-4 mt-4">
+            {# Bloc csl #}
+            <div class="row ">
+                <div class="col-2 informations">
+                    Carnet de santé :
+                </div>
+                <div class="col-6 csl">
+                    {# Lien vers la page CSL #}
+                    <a href="{{ path('dashboard_csl', {id: bien.id}) }}">
+                        {# Image svg #}
+                        <svg width="30px" height="30px">
+                            <g>
+                                <path class="st0" d="M21.1,13.2H9.8c-0.4,0-0.7,0.3-0.7,0.7s0.3,0.7,0.7,0.7h11.3c0.4,0,0.7-0.3,0.7-0.7S21.5,13.2,21.1,13.2
+                                    L21.1,13.2z" />
+                                <path class="st0" d="M22.8,0H4.9c-0.6,0-1,0.5-1,1v3H3.7C3.3,4,2.9,4.3,2.9,4.8c0,0.4,0.3,0.7,0.7,0.7h0.2v3.7H3.7
+                                    c-0.4,0-0.7,0.3-0.7,0.7s0.3,0.7,0.7,0.7h0.2v3.7H3.7c-0.4,0-0.7,0.3-0.7,0.7c0,0.4,0.3,0.7,0.7,0.7h0.2v3.7H3.7
+                                    c-0.4,0-0.7,0.3-0.7,0.7s0.3,0.7,0.7,0.7h0.2v3.7H3.7c-0.4,0-0.7,0.3-0.7,0.7S3.3,26,3.7,26h0.2v3c0,0.6,0.5,1,1,1h17.9
+                                    c1.9,0,3.4-1.5,3.4-3.4V3.4C26.2,1.5,24.7,0,22.8,0L22.8,0z M24.2,26.2c0,0.8-0.7,1.4-1.4,1.4H5.9v-2h0.2c0.4,0,0.7-0.3,0.7-0.7
+                                    s-0.3-0.7-0.7-0.7H5.9v-3.7h0.2c0.4,0,0.7-0.3,0.7-0.7S6.5,19,6.1,19H5.9v-3.7h0.2c0.4,0,0.7-0.3,0.7-0.7c0-0.4-0.3-0.7-0.7-0.7
+                                    H5.9v-3.7h0.2c0.4,0,0.7-0.3,0.7-0.7c0-0.4-0.3-0.7-0.7-0.7H5.9V5.4h0.2c0.4,0,0.7-0.3,0.7-0.7C6.8,4.3,6.5,4,6.1,4H5.9V2.1h16.9
+                                    c0.8,0,1.4,0.7,1.4,1.4V26.2z" />
+                                <path class="st0"
+                                    d="M21.1,7.2H9.8c-0.4,0-0.7,0.3-0.7,0.7v3.5c0,0.4,0.3,0.7,0.7,0.7h11.3c0.4,0,0.7-0.3,0.7-0.7V7.9
+                                    C21.9,7.4,21.5,7.2,21.1,7.2L21.1,7.2z M20.5,10.7h-10V8.5h9.9L20.5,10.7L20.5,10.7z" />
+                            </g>
+                        </svg>
+                        Cliquez ici pour accèder à l'interface CSL
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

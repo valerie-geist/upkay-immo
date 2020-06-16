@@ -1,0 +1,32 @@
+/* Style général header */
+.header{
+    padding: 0 20px;
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+}
+
+/* Couleur fond header */
+.bg-yellow{
+    background-color: #ffc200;
+}
+
+/* Couleur fond header CSL */
+.bg-bleu{
+    background-color: #00bfb0;
+}
+
+/* Style affichage agence (typo, alignement, épaisseur et taille) */
+.agence{
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.7em;
+}
+
+/* Style de la navbar */
+.navbar{
+    font-size: 0.8em;
+    font-family: 'Roboto', sans-serif;
+}
+

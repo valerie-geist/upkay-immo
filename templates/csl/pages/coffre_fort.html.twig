@@ -1,0 +1,52 @@
+{# Page coffre-fort contenant les documents et les devis transmis par l'agence (non fonctionnel) #}
+
+{% extends 'csl/csl_base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+
+        /* Taille des titres */
+        h2{
+            font-size: 1.3em;
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block body %}
+    {# Titre de la page #}
+    <h1 class="mt-5">Coffre fort</h1>
+    <div class="separation mb-4"></div>
+
+    {# Unique ligne de la page #}
+    <div class="mt-4 mr-4">
+        <div class="row">
+            {# Case facture (non fonctionnelle) #}
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <div class="container encart">
+                    <h2 class="mt-2">Factures</h2>
+                    <button class="btn bouton btn-sm mt-3 mb-2">Voir</button>
+                </div>
+            </div>
+            {# Case attestations (non fonctionnelle) #}
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <div class="container encart">
+                    <h2 class="mt-2">Attestations</h2>
+                    <button class="btn bouton btn-sm mt-3 mb-2">Voir</button>
+                </div>
+            </div>
+            {# Case devis (non fonctionnelle) #}
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <div class="container encart">
+                    <h2 class="mt-2">Devis</h2>
+                    <button class="btn bouton btn-sm mt-3 mb-2">Voir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+

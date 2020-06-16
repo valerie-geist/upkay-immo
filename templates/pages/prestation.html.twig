@@ -1,0 +1,329 @@
+{# Page visualisation détails prestation ouverte #}
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/pages-prestation-style.css') }}">
+{% endblock %}
+
+{% block body %}
+
+{# Titre de la page #}
+<h1 class="mt-5">Prestation en cours n° {{ prestation.id }}</h1>
+<div class="separation mb-4"></div>
+
+{# Première ligne de la page (référence, type de prestation, adresse) #}
+<div class="mt-4 mr-4">
+    <div class="row">
+        {# Référence de la prestation (id) #}
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="container encart">
+                <h2>Référence de la prestation</h2>
+                <p class="texte-jaune">{{ prestation.id }}</p>
+            </div>
+        </div>
+        {# Type de prestation (catégorie et intervention) #}
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="container encart">
+                <h2>Type de prestation</h2>
+                <p class="texte-jaune petit">{{ prestation.categorie.intervention.nom }}<br>
+                    {{ prestation.categorie.nom }}</p>
+            </div>
+        </div>
+        {# Adresse du bien #}
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="container encart">
+                <h2>Adresse du bien</h2>
+                <p class="texte-jaune petit">{{ prestation.bien.adresse }}<br>
+                    {{ prestation.bien.ville.nom }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Deuxième ligne de la page (tableau récapitulatif: nom logement, statut de la demande, demandeur, artisan et tarif) #}
+<div class="mt-2 mr-4">
+    <div class="encart">
+        {# Tableau récapitulatif des informations de la prestation (Bootstap) #}
+        <div class="table-responsive">
+            <table class="table table-striped table-sm mt-2">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom du logement</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Demandeur</th>
+                        <th scope="col">Artisan</th>
+                        <th scope="col">Tarif</th>
+                    </tr>
+                </thead>
+                {# Affichage des données dynamique #}
+                <tbody>
+                    <tr>
+                        <td>{{ prestation.bien.nom }}</td>
+                        <td>{{ prestation.statut }}</td>
+                        <td>{{ prestation.bien.locataire.prenom }} {{ prestation.bien.locataire.nom }}</td>
+                        <td>{{ prestation.artisan }}</td>
+                        <td>{{ prestation.tarif }} €</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{# Troisième ligne de la page - avancée de la prestation (barre de progression: création de la demande, validation, paiement, date d'intervention et date de clôture de la prestation) #}
+<div class="mt-3 mr-4">
+    <div class="encart">
+        {# Titre de la case #}
+        <h2 class="left mt-2 ml-2">Avancée de la prestation <strong>{{ prestation.categorie.intervention.nom }}
+                {{ prestation.categorie.nom }}</strong> à <strong>{{ prestation.bien.nom }}</strong></h2>
+        <div class="sous-separation"></div>
+        {# Dates importantes de la demande #}
+        <div class="row mt-5 dates">
+            <div class="col">{{ prestation.dateDemande|date('d.m.Y') }}</div>
+            {# Affichage de la date si elle existe #}
+            <div class="col">
+                {% if prestation.dateValidation != NULL %}
+                    {{ prestation.dateValidation|date('d.m.Y') }}
+                {% endif %}
+            </div>
+            {# Affichage de la date si elle existe #}
+            <div class="col">
+                {% if prestation.datePaiement != NULL %}
+                    {{ prestation.datePaiement|date('d.m.Y') }}
+                {% endif %}
+            </div>
+            {# Affichage de la date si elle existe #}
+            <div class="col">
+                {% if prestation.dateIntervention != NULL %}
+                    {{ prestation.dateIntervention|date('d.m.Y') }}
+                {% endif %}
+            </div>
+            {# Affichage de la date si elle existe #}
+            <div class="col">
+                {% if prestation.dateCloture != NULL %}
+                    {{ prestation.dateCloture|date('d.m.Y') }}
+                {% endif %}
+            </div>
+        </div>
+        {# Barre de progression (Bootstrap) #}
+        <div class="progress mt-3" style="height: 10px;">
+            {# Barre de progression: condition de remplissage en fonction du statut ("en cours" ou "en attente") #}
+            {% if prestation.statut == statut_en_cours %}
+                <div class="progress-bar" role="progressbar" style="width: 50%; background-color: #00bfb0"></div>
+            {% else %}
+            {# Statut en attente #}
+                <div class="progress-bar" role="progressbar" style="width: 0; background-color: #00bfb0"></div>
+            {% endif %}
+        </div>
+        {# Evènements liés aux dates #}
+        <div class="row mt-3 texte-barre-progression">
+            <div class="col">Création de la demande</div>
+            <div class="col">Validation de la prestation par l'artisan</div>
+            <div class="col">Paiement validé</div>
+            <div class="col">Date d'intervention prévue</div>
+            <div class="col">Clôture de la demande<br> et notation</div>
+        </div>
+    </div>
+</div>
+
+{# Quatrième ligne de la page - échanges sur la prestation (message du locataire, artisan ou agence et formulaire de création de commentaire agence) #}
+<div class="mt-3 mr-4">
+    <div class="encart">
+        {# Récapitulatif information prestation #}
+        <h2 class="left mt-2 ml-2">Échanges sur la prestation
+            <strong>{{ prestation.categorie.intervention.nom }} {{ prestation.categorie.nom }}</strong> à
+            <strong>{{ prestation.bien.nom }}</strong></h2>
+        <div class="sous-separation"></div>
+        <div class="row mt-3 justify-content-center ">
+
+            {# Case échange locataire #}
+            <div class="col ml-3 mr-1">
+                <div class="echanges">
+                    {# Titre de la case locataire #}
+                    <h3>Locataire</h3>
+                    <div>{{ prestation.bien.locataire.prenom }} {{ prestation.bien.locataire.nom }}</div>
+                </div>
+                {# Case commentaire locataire #}
+                {# Condition si la case est vide #}
+                {% if commentaires_locataire == NULL %}
+                    <div class="echanges mt-1">
+                        <div class="texte">Pas de message du locataire</div>
+                    </div>
+                {% else %}
+                    {# Affichage du contenu si commentaire #}
+                    {% for commentaire in commentaires_locataire %}
+                        <div class="echanges mt-1">
+                            <h4>{{ commentaire.date|date('d.m.Y') }}</h4>
+                            <div>{{ commentaire.message }}</div>
+                        </div>
+                        {# Affichage des photos si elles existent #}
+                        {% if commentaire.photo %}
+                            <div class="echanges mt-1">
+                                <img src="/uploads/{{commentaire.photo}}" width="100%" alt="photo presta">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {# Case échange artisan #}
+            <div class="col mr-1">
+                <div class="echanges">
+                    {# Titre de la case artisan #}
+                    <h3>Artisan</h3>
+                    <div>{{ prestation.artisan }}</div>
+                </div>
+                {# Case commentaire artisan #}
+                {# Condition si la case est vide #}
+                {% if commentaires_artisan == NULL %}
+                    <div class="echanges mt-1">
+                        <div class="texte">Pas de messages de l'artisan</div>
+                    </div>
+                {% else %}
+                    {# Affichage du contenu si commentaire #}
+                    {% for commentaire in commentaires_artisan %}
+                        <div class="echanges mt-1">
+                            <h4>{{ commentaire.date|date('d.m.Y') }}</h4>
+                            <div>{{ commentaire.message }}</div>
+                        </div>
+                        {# Affichage des photos si elles existent #}
+                        {% if commentaire.photo %}
+                            <div class="echanges mt-1">
+                                <img src="/uploads/{{commentaire.photo}}" width="100%" alt="photo presta">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {# Case échange agence #}
+            <div class="col mr-3">
+                <div class="echanges">
+                    {# Titre de la case agence #}
+                    <h3>Agence</h3>
+                    <div>{{ prestation.bien.agence.prenomRepresentant }} {{ prestation.bien.agence.nomRepresentant }}
+                    </div>
+                </div>
+                {# Case commentaire agence #}
+                {% for commentaire in commentaires_agence %}
+                    <div class="echanges mt-1">
+                        <h4 class="mt-3">{{ commentaire.date|date('d.m.Y') }}</h4>
+                        <div>{{ commentaire.message }}</div>
+                    </div>
+                    {# Affichage des photos si elles existent #}
+                    {% if commentaire.photo %}
+                        <img src="/uploads/{{commentaire.photo}}" width="100%" alt="photo presta">
+                    {% endif %}
+                {% endfor %}
+
+                {# Case formulaire commentaire agence #}
+                <div class="echanges mt-1">
+                    {# Action onClick sur le bouton -> ouvre la partie formulaire commentaire cachée #}
+                    <div class="mt-2 bouton-prestation" type="button" data-toggle="collapse" data-target="#commentaireAgence">
+                        <img src="{{ asset('images/icones/editer.svg') }}" alt="ajouter" class="mb-2 mt-1" height="20px">
+                        <p>Ajouter un message</p>
+                    </div>
+                    {# Formulaire commentaire agence #}
+                    <div class="formulaire mt-3 collapse" id="commentaireAgence">
+                        {{ form_start(commentaire_agence_form) }}
+                        <div class="form-group">
+                            <div class="label">
+                                {{ form_widget(commentaire_agence_form.message, {'attr': {'class': 'form-control form-control-sm',  'rows' : '6', }}) }}
+                            </div>
+                        </div>
+
+                        {# Case Photo #}
+                        {# Action onClick sur le bouton -> ouvre la partie formulaire ajout photo cachée #}
+                        <div class="mt-2 bouton-prestation" type="button" data-toggle="collapse" data-target="#photoAgence">
+                            <img src="{{ asset('images/icones/ajouter.svg') }}" alt="ajouter" class="mb-2 mt-1" height="20px">
+                            <p>Ajouter une photo</p>
+                        </div>
+                        <div class="collapse" id="photoAgence">
+                            <div class="form-group ml-4 mt-2">
+                                <div class="ml-5">
+                                    {{ form_widget(commentaire_agence_form.photo, {'attr': {'class': 'form-control-file'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn bouton-formulaire btn-sm mt-3">Créer un commentaire</button>
+                        {{ form_end(commentaire_agence_form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Cinquième ligne de la page - boutons notation prestation, contact artisan et annulation prestation (boutons non fonctionnels) #}
+<div class="mt-3 mr-4">
+    <div class="encart">
+        <div class="row justify-content-center">
+            {# Boutons fonction onClick affichant des formulaires fictifs #}
+            <div class="col mt-5 mb-5 align-self-center">
+                {# Bouton notation prestation #}
+                <button class="btn bouton mt-4" type="button" data-toggle="collapse" data-target="#cloture">
+                    Noter la prestation pour clôturer
+                </button>
+                {# Bouton contact avec l'artisan #}
+                <button class="btn bouton mt-3" type="button" data-toggle="collapse" data-target="#smsArtisan">
+                    Envoyer un SMS à l'artisan
+                </button>
+                {# Bouton annulation de la prestation #}
+                <button class="btn bouton mt-3 mb-4" type="button" data-toggle="collapse" data-target="#annulation">
+                    Annuler la prestation
+                </button>
+            </div>
+
+            {# Formulaire fictifs ouvert par les fonctions OnClick de leur bouton #}
+            <div class="col">
+                {# Formulaire fictif notation prestation #}
+                <div class="collapse" id="cloture">
+                    <div class="cadre-bouton">
+                        <div class="col">
+                            <img src="{{ asset('images/dashboard/note-etoiles.svg') }}" class="mt-3" width="30%"
+                                alt="note">
+                            <form class="mt-1 pb-2">
+                                <div class="form-group">
+                                    <label>Ajouter un commentaire :</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <button type="button" class="btn bouton mt-3">Noter la prestation</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {# Formulaire fictif contact artisan #}
+                <div class="collapse" id="smsArtisan">
+                    <div class="cadre-bouton">
+                        <div class="col">
+                            <form class="pt-3 pb-2">
+                                <div class="form-group">
+                                    <label>Votre message :</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <button type="button" class="btn bouton mt-3">Envoyer votre message à
+                                        l'artisan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {# Formulaire fictif annulation prestation #}
+                <div class="collapse" id="annulation">
+                    <div class="cadre-bouton">
+                        <div class="col">
+                            <form class="pt-3 pb-2">
+                                <div class="form-group">
+                                    <label>Motif de l'annulation :</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <button type="button" class="btn bouton mt-3">Annuler la prestation</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

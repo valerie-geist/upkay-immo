@@ -1,0 +1,152 @@
+
+/* BODY */
+body{
+    background-color: #f5f5f5;
+    overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+
+/* TITRES */
+
+/* Style titres principaux */
+h1{
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
+}
+
+/* Style titres encarts (taille et épaisseur) */
+h2{
+    font-size: 1em;
+    font-weight: 500;
+}
+
+
+/* TEXTE */
+
+/* Style contenu jaune encart (couleur, épaisseur et taille) */
+.texte-jaune{
+    color: #ffc200;
+    font-weight: bold;
+    font-size: 2.5em;
+}
+
+/* Alignement texte gauche*/
+.left{
+    text-align: left;
+}
+
+/* Style texte données nulles (couleur, taille, style et épaisseur) */
+.texte-null{
+    color: #ffc200;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 500;
+}
+
+
+/* AUTRES */
+
+/* Style des encarts (bg, couleur, typo, alignement, ombre) */
+.encart{
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    color: #2e2e2e;
+    box-shadow: 5px 2px 10px rgba(46, 46, 46, 0.2);
+    padding: 15px;
+    height: 100%;
+}
+
+/* Style trait de séparation titre - contenu */
+.separation{
+    border-bottom: #ffc200 1.5px solid;
+    width: 20%;
+}
+
+/* Style trait de séparation sous-titre - contenu */
+.sous-separation{
+    border-bottom: #ffc200 1px solid;
+    width: 10%;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+
+/* BOUTON */
+
+/* Style bouton (bg, couleur, taille) */
+.bouton{
+    background-color: #00bfb0;
+    color: white;
+    width: 50%;
+    font-size: 0.7em;
+}
+
+/* Style bouton hover (bg, couleur) */
+.bouton:hover{
+    background-color: rgba(0, 191, 176, 0.71);
+    color: white;
+}
+
+/* Style bouton formulaire (largeur) */
+.bouton-formulaire{
+    background-color: #00bfb0;
+    color: white;
+    font-size: 1em;
+    font-family: 'Open Sans', sans-serif;
+    width: 100%;
+    text-transform: none;
+}
+
+/* Style bouton large (largeur) */
+.bouton-formulaire:hover{
+    background-color: white;
+    color: #00bfb0;
+    border: #00bfb0 1px solid;
+}
+
+
+/* TABLEAUX */
+
+/* Style général tableaux (taille et typo) */
+table{
+    font-size: 0.8em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Style header tableaux (bg, couleur et poid) */
+thead{
+    background-color: #ffc200;
+    color: white;
+}
+
+/* Alignement texte au centre */
+.table thead th,
+.table td{
+    vertical-align: middle;
+}
+
+/* FORMULAIRES */
+
+/* Style encart formulaire */
+.encart-form{
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+    color: #2e2e2e;
+    box-shadow: 5px 2px 10px rgba(46, 46, 46, 0.2);
+    padding: 3% 7%;
+
+}
+
+/* Taille label formulaire */
+.formulaire{
+    font-size: 0.8em;
+    font-weight: 300;
+}
+
+/* Taille placeholder */
+.form-control-sm{
+    font-size: 1em;
+}

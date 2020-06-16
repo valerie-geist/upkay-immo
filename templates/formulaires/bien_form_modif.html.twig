@@ -1,0 +1,309 @@
+{# Formulaire de modification d'un bien déjà existant #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{# Titre de la page #}
+<h1 class="mt-5">Modifier un bien</h1>
+<div class="separation mb-4"></div>
+
+<div class="encart-form mr-4">
+
+    {# Information générales sur le bien (nom*, adresse*, cp*, ville*, étage, ascenceur, type de bien*, surface) #}
+    <h2>Informations sur le bien</h2>
+    <div class="sous-separation mb-4"></div>
+
+    <div class="formulaire">
+        {{ form_start(bienForm) }}
+
+        {# Case Nom du bien #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.nom, "Nom du bien : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.nom, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Adresse Bien #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.adresse, "Adresse du bien : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.adresse, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Code Postal Bien #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.ville.codePostal, "Code postal du bien : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.ville.codePostal, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Ville Bien #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.ville.nom, "Ville du bien : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.ville.nom, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Etage bien #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.etage, "Etage du bien :") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.etage, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Ascenceur #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.ascenceur, "Ascenceur :") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.ascenceur, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Type de Bien #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.type_bien, "Type de bien : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.type_bien, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Surface du bien #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.surface, "Surface du bien : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.surface, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+
+        {# Information sur le chauffage (type*, marque*, modèle, puissance, date d'installation) #}
+        <h2>Informations sur le chauffage</h2>
+        <div class="sous-separation mb-4"></div>
+
+        {# Case Type de chauffage #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.chauffage.type, "Type de chauffage : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.chauffage.type, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Marque chauffage #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.chauffage.marque, "Marque du chauffage : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.chauffage.marque, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Modèle chauffage #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.chauffage.modele, "Modèle du chauffage :") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.chauffage.modele, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case puissance chauffage #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.chauffage.puissance, "Puissance du chauffage :") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.chauffage.puissance, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Date Installation chauffage #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.chauffage.annee_installation, "Date d'installation du chauffage :") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.chauffage.annee_installation) }}
+            </div>
+        </div>
+
+
+        {# Information sur le chauffe eau (type*, marque*, modèle, capacité, date d'installation) #}
+        <h2>Informations sur le chauffe eau</h2>
+        <div class="sous-separation mb-4"></div>
+
+        {# Case Type de chauffe eau #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.chauffe_eau.type, "Type de chauffe eau : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.chauffe_eau.type, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Marque chauffe eau #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.chauffe_eau.marque, "Marque du chauffe eau : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.chauffe_eau.marque, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Modèle chauffe eau #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.chauffe_eau.modele, "Modèle du chauffe eau :") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.chauffe_eau.modele, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case capacité chauffe eau #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.chauffe_eau.capacite, "Capacité du chauffe eau :") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.chauffe_eau.capacite, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Date Installation chauffe eau #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.chauffe_eau.annee_installation, "Date d'installation du chauffe eau :") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.chauffe_eau.annee_installation) }}
+            </div>
+        </div>
+
+
+        {# Information sur le locataire (nom*, prénom*, email*, téléphone*, date de naissance*, nationalité* et pays de résidence*) #}
+        <h2 class="mt-5">Informations sur le locataire</h2>
+        <div class="sous-separation mb-4"></div>
+
+        {# Case Nom Locataire #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.locataire.nom, "Nom du locataire : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.locataire.nom, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Prénom Locataire #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.locataire.prenom, "Prénom du locataire : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.locataire.prenom, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Email Locataire #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.locataire.email, "Email du locataire : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.locataire.email, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Téléphone Locataire #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.locataire.telephone, "Téléphone du locataire : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.locataire.telephone, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Date Naissance Locataire #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.locataire.date_naissance, "Date de naissance du locataire : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.locataire.date_naissance) }}
+            </div>
+        </div>
+
+        {# Case Nationalité Locataire #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.locataire.nationalite, "Nationalité du locataire : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.locataire.nationalite, {'attr': {'class': 'form-control form-control-sm'}}) }}
+            </div>
+        </div>
+
+        {# Case Pays Résidence Locataire #}
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.locataire.pays_residence, "Pays de résidence du locataire : *") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.locataire.pays_residence, {'attr': {'class': 'form-control form-control-sm'}})
+                }}
+            </div>
+        </div>
+
+
+        {# Photo du logement (limité à une photo) #}
+        <h2 class="mt-5">Photo du logement</h2>
+        <div class="sous-separation mb-4"></div>
+
+        <div class="form-group row">
+            <div class="col-sm-3 col-form-label">
+                {{ form_label(bienForm.photo, "Photo du logement :") }}
+            </div>
+            <div class="col-sm-7">
+                {{ form_widget(bienForm.photo) }}
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <button type="submit" class="btn bouton-formulaire btn-sm">Modifier le bien</button>
+            </div>
+        </div>
+        {{ form_end(bienForm) }}
+    </div>
+</div>
+
+{% endblock %}
